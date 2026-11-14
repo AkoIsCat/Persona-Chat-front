@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --frame: #f7f9fb;
+  --frame-outside: #e6e8ea;
+  --surface-lowest: #ffffff;
+  --on-surface: #191c1e;
+  --on-surface-variant: #45464d;
+  --outline: #76777d;
+  --outline-variant: #e2e8f0;
+  --primary: #131b2e;
+  --on-primary: #ffffff;
+  --secondary-container: #d0e1fb;
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --color-frame: var(--frame);
+  --color-frame-outside: var(--frame-outside);
+  --color-surface-lowest: var(--surface-lowest);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-secondary-container: var(--secondary-container);
+  --color-error: var(--error);
+  --color-error-container: var(--error-container);
+  --radius-control: 0.625rem;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--frame-outside);
+  color: var(--on-surface);
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+button:disabled {
+  cursor: pointer;
+}
