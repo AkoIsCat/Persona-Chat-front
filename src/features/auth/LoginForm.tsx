@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { authErrorMessage, loginWithPassword } from "@/features/auth/session";
 import { PasswordField } from "@/features/auth/PasswordField";
-import { SocialLoginButton } from "@/features/auth/SocialLoginButton";
 import { getAccessToken } from "@/lib/auth/token";
 import { routes } from "@/lib/navigation";
 
@@ -68,8 +68,8 @@ export function LoginForm() {
           value={password}
           onChange={setPassword}
         />
-        <div className="flex items-center justify-between gap-3 text-[12px] leading-4">
-          <label className="flex items-center gap-2 text-on-surface-variant">
+        <div className="flex items-center justify-between gap-3">
+          <label className="flex items-center gap-2 text-[12px] leading-4 text-on-surface-variant">
             <input
               type="checkbox"
               checked={remember}
@@ -78,9 +78,9 @@ export function LoginForm() {
             />
             로그인 상태 유지
           </label>
-          <Button variant="ghost" pending className="min-h-0 px-0 text-[12px] text-outline">
+          <Link href={routes.passwordReset} className="text-[12px] leading-4 text-outline">
             비밀번호를 잊으셨나요?
-          </Button>
+          </Link>
         </div>
         {error ? (
           <p role="alert" className="text-[12px] leading-4 text-error">
@@ -91,19 +91,6 @@ export function LoginForm() {
           {submitting ? "로그인 중" : "로그인"}
         </Button>
       </form>
-      <AuthDivider />
-      <SocialLoginButton label="Google로 계속하기" />
-    </div>
-  );
-}
-
-function AuthDivider() {
-  return (
-    <div className="relative my-4 text-center">
-      <div className="absolute inset-0 flex items-center">
-        <div className="w-full border-t border-outline-variant" />
-      </div>
-      <span className="relative bg-surface-lowest px-3 text-[12px] font-medium text-outline">또는</span>
     </div>
   );
 }

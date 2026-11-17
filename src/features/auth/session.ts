@@ -43,6 +43,28 @@ export function deleteAccount() {
   return api.delete<{ deleted: boolean; user_id: number }>("/users/me");
 }
 
+export function requestPasswordReset(email: string) {
+  return api.post<{ message: string }>("/password-reset/request", { email });
+}
+
+export function verifyPasswordReset(email: string, code: string) {
+  return api.post<{ message: string; reset_token: string }>("/password-reset/verify", { email, code });
+}
+
+export function confirmPasswordReset(input: {
+  email: string;
+  resetToken: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}) {
+  return api.post<{ message: string }>("/password-reset/confirm", {
+    email: input.email,
+    reset_token: input.resetToken,
+    new_password: input.newPassword,
+    new_password_confirm: input.newPasswordConfirm,
+  });
+}
+
 export async function signupAndLogin(input: { email: string; password: string; nickname: string }) {
   await api.post("/users", input);
   return loginWithPassword(input.email, input.password, true);

@@ -2,6 +2,7 @@ export const routes = {
   start: "/",
   login: "/login",
   signup: "/signup",
+  passwordReset: "/password-reset",
   home: "/home",
   charactersNew: "/characters/new",
   character: (characterId: string) => `/characters/${characterId}`,

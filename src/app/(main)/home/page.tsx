@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { PageContainer } from '@/components/layout/PageContainer';
-import { PersonaIntro } from '@/app/(main)/home/PersonaIntro';
 import { HomeGreeting } from '@/features/auth/SessionProfile';
 import { HomeCharacterSection } from '@/features/character/HomeCharacterSection';
 import { RecentChat } from '@/features/chat/RecentChat';
@@ -29,7 +28,6 @@ export default function HomePage() {
         </section>
         <HomeCharacterSection />
         <RecentChat />
-        <PersonaIntro />
       </PageContainer>
     </>
   );

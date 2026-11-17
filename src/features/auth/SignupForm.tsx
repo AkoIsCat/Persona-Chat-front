@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { authErrorMessage, signupAndLogin } from "@/features/auth/session";
 import { PasswordField } from "@/features/auth/PasswordField";
-import { SocialLoginButton } from "@/features/auth/SocialLoginButton";
 import { getAccessToken } from "@/lib/auth/token";
 import { routes } from "@/lib/navigation";
 
@@ -16,7 +15,6 @@ export function SignupForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [terms, setTerms] = useState(false);
   const [marketing, setMarketing] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -49,10 +47,6 @@ export function SignupForm() {
     }
     if (password !== passwordConfirm) {
       setError("비밀번호 확인이 일치하지 않습니다.");
-      return;
-    }
-    if (!terms) {
-      setError("이용약관 및 개인정보 처리방침에 동의해 주세요.");
       return;
     }
 
@@ -108,17 +102,6 @@ export function SignupForm() {
           <label className="flex items-start gap-2">
             <input
               type="checkbox"
-              checked={terms}
-              onChange={(event) => setTerms(event.target.checked)}
-              className="mt-0.5 size-4 accent-primary"
-            />
-            <span>
-              [필수] <span className="underline">이용약관</span> 및 <span className="underline">개인정보 처리방침</span> 동의
-            </span>
-          </label>
-          <label className="flex items-start gap-2">
-            <input
-              type="checkbox"
               checked={marketing}
               onChange={(event) => setMarketing(event.target.checked)}
               className="mt-0.5 size-4 accent-primary"
@@ -135,15 +118,6 @@ export function SignupForm() {
           {submitting ? "가입 중" : "회원가입"}
         </Button>
       </form>
-      <div className="relative my-4 text-center">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-outline-variant" />
-        </div>
-        <span className="relative bg-surface-lowest px-3 text-[12px] font-medium text-outline">또는</span>
-      </div>
-      <div className="mb-6">
-        <SocialLoginButton label="Google로 가입하기" />
-      </div>
     </div>
   );
 }

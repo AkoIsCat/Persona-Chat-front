@@ -119,6 +119,12 @@ export function analyzeCharacterPersona(characterId: number) {
   return api.post<AnalyzeResult>(`/characters/${characterId}/analyze`);
 }
 
+export function searchSupplementalPersona(characterId: number) {
+  return api.post<AnalyzeResult & { documents_saved: number; message: string }>(
+    `/characters/${characterId}/persona/supplement`,
+  );
+}
+
 export function getCharacterPersona(characterId: number) {
   return api.get<PersonaRecord>(`/characters/${characterId}/persona`);
 }

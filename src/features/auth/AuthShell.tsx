@@ -4,7 +4,7 @@ import { routes } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 
 type AuthShellProps = {
-  mode: 'login' | 'signup';
+  mode: 'login' | 'signup' | 'reset';
   children: React.ReactNode;
 };
 

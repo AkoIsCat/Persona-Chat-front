@@ -20,8 +20,6 @@ type PageStats = {
   memories: number;
 };
 
-const serviceItems = ["공지사항 및 이벤트", "자주 묻는 질문", "1:1 문의하기", "서비스 이용약관 및 개인정보처리방침"];
-
 export function MyPageContent() {
   const router = useRouter();
   const [user, setUser] = useState<AuthUser | null>(null);
@@ -203,7 +201,7 @@ export function MyPageContent() {
           ) : null}
           <Button
             variant="ghost"
-            className="h-auto min-h-14 w-full justify-between rounded-none border-b border-outline-variant px-4 py-3 text-left"
+            className="h-auto min-h-14 w-full justify-between rounded-none px-4 py-3 text-left"
             onClick={() => {
               setPasswordError("");
               setPasswordOpen((open) => !open);
@@ -212,7 +210,7 @@ export function MyPageContent() {
             <span className="text-[15px] font-medium">비밀번호 변경</span>
           </Button>
           {passwordOpen ? (
-            <div className="flex flex-col gap-3 border-b border-outline-variant px-4 py-4">
+            <div className="flex flex-col gap-3 px-4 py-4">
               <PasswordField id="current-password" label="기존 비밀번호" placeholder="기존 비밀번호" value={currentPassword} disabled={savingPassword} onChange={setCurrentPassword} />
               <PasswordField id="new-password" label="새 비밀번호" placeholder="8자 이상" value={newPassword} disabled={savingPassword} onChange={setNewPassword} />
               {passwordError ? <p className="text-[12px] leading-4 text-error">{passwordError}</p> : null}
@@ -226,14 +224,9 @@ export function MyPageContent() {
               </div>
             </div>
           ) : null}
-          <Button variant="ghost" pending className="h-auto min-h-14 w-full justify-between rounded-none px-4 py-3 text-left">
-            <span className="text-[15px] font-medium">연동 계정 관리</span>
-          </Button>
         </Card>
         {passwordMessage ? <p className="px-1 text-[12px] leading-4 text-primary">{passwordMessage}</p> : null}
       </section>
-
-      <MenuGroup title="서비스 안내" items={serviceItems} />
 
       <div className="flex flex-col items-center gap-3 py-4">
         <div className="flex items-center justify-center gap-4">
@@ -269,24 +262,4 @@ function statsErrorMessage(error: unknown) {
     return "통계를 불러오지 못했습니다.";
   }
   return message;
-}
-
-function MenuGroup({ title, items }: { title: string; items: string[] }) {
-  return (
-    <section className="flex flex-col gap-2">
-      <h2 className="px-1 text-[12px] font-semibold text-outline">{title}</h2>
-      <Card className="overflow-hidden p-0">
-        {items.map((item) => (
-          <Button
-            key={item}
-            variant="ghost"
-            pending
-            className="h-auto min-h-14 w-full justify-between rounded-none border-b border-outline-variant px-4 py-3 text-left last:border-b-0"
-          >
-            <span className="text-[15px] font-medium">{item}</span>
-          </Button>
-        ))}
-      </Card>
-    </section>
-  );
 }

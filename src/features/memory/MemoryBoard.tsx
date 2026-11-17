@@ -146,38 +146,32 @@ export function MemoryBoard({ characterId, characterName, memories, onMemoriesCh
                 {updatedLabel ? <span className="shrink-0 text-[12px] text-outline">{updatedLabel}</span> : null}
               </div>
               <p className="text-[15px] leading-6">“{memory.memory_text}”</p>
-              <div className="flex items-center justify-between gap-2 border-t border-outline-variant pt-2">
-                <span className="text-[12px] text-outline">{createdLabel ? `생성 ${createdLabel}` : ""}</span>
-                <div className="flex items-center gap-1">
-                  <Button
-                    variant="ghost"
-                    onClick={() => {
-                      setSaveError("");
-                      setEditingId(memory.id);
-                    }}
-                    aria-label="기억 수정"
-                    disabled={deletingId === memory.id}
-                    className="size-9 min-h-9 px-0"
-                  >
-                    <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z" />
-                    </svg>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    onClick={() => {
-                      setDeleteError("");
-                      setAskDeleteId(memory.id);
-                    }}
-                    aria-label="기억 삭제"
-                    disabled={deletingId === memory.id}
-                    className="size-9 min-h-9 px-0 text-error"
-                  >
-                    <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 7h12M9 7V5h6v2m-7 3l.5 9h7l.5-9" />
-                    </svg>
-                  </Button>
-                </div>
+              {createdLabel ? <p className="text-[12px] leading-4 text-outline">생성 {createdLabel}</p> : null}
+              <div className="grid grid-cols-2 gap-2 border-t border-outline-variant pt-3">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => {
+                    setSaveError("");
+                    setEditingId(memory.id);
+                  }}
+                  disabled={deletingId === memory.id}
+                  className="min-h-10 w-full"
+                >
+                  수정
+                </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => {
+                    setDeleteError("");
+                    setAskDeleteId(memory.id);
+                  }}
+                  disabled={deletingId === memory.id}
+                  className="min-h-10 w-full border-error text-error"
+                >
+                  삭제
+                </Button>
               </div>
               {askDeleteId === memory.id ? (
                 <div className="rounded-xl border border-outline-variant bg-surface-lowest p-3">

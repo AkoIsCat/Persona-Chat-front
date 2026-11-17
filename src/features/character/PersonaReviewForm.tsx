@@ -14,6 +14,7 @@ import {
   getCharacterSummary,
   normalizePersona,
   personaFieldLabels,
+  searchSupplementalPersona,
   updateCharacterPersona,
   type PersonaFields,
 } from "@/features/character/persona";
@@ -32,6 +33,7 @@ export function PersonaReviewForm({ characterId }: PersonaReviewFormProps) {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [searching, setSearching] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [askConfirm, setAskConfirm] = useState(false);
   const [error, setError] = useState("");
@@ -81,8 +83,27 @@ export function PersonaReviewForm({ characterId }: PersonaReviewFormProps) {
     setNotice("");
   }
 
+  async function onSearch() {
+    if (!persona || saving || searching || confirming || confirmed) {
+      return;
+    }
+    setSearching(true);
+    setError("");
+    setNotice("");
+    try {
+      const result = await searchSupplementalPersona(numericId);
+      setPersona(normalizePersona(result.persona));
+      setConfirmed(result.is_confirmed);
+      setNotice(result.message);
+    } catch (caught) {
+      setError(characterErrorMessage(caught));
+    } finally {
+      setSearching(false);
+    }
+  }
+
   async function onSave() {
-    if (!persona || saving || confirming || confirmed) {
+    if (!persona || saving || searching || confirming || confirmed) {
       return;
     }
     setSaving(true);
@@ -102,7 +123,7 @@ export function PersonaReviewForm({ characterId }: PersonaReviewFormProps) {
   }
 
   async function onConfirm() {
-    if (!persona || saving || confirming || confirmed) {
+    if (!persona || saving || searching || confirming || confirmed) {
       return;
     }
     setConfirming(true);
@@ -130,7 +151,7 @@ export function PersonaReviewForm({ characterId }: PersonaReviewFormProps) {
     return <EmptyState title="페르소나를 불러오지 못했습니다" description={error || undefined} />;
   }
 
-  const busy = saving || confirming;
+  const busy = saving || searching || confirming;
 
   return (
     <div className="flex flex-col gap-4">
@@ -149,9 +170,11 @@ export function PersonaReviewForm({ characterId }: PersonaReviewFormProps) {
           onChange={(event) => updateField(field.key, event.target.value)}
         />
       ))}
-      <Button type="button" pending variant="secondary" className="w-full">
-        추가 데이터 검색
-      </Button>
+      {confirmed ? null : (
+        <Button type="button" variant="secondary" className="w-full" disabled={busy} onClick={() => void onSearch()}>
+          {searching ? "검색 중" : "추가 데이터 검색"}
+        </Button>
+      )}
       {notice ? <p className="text-[12px] leading-4 text-primary">{notice}</p> : null}
       {error ? (
         <p role="alert" className="text-[12px] leading-4 text-error">

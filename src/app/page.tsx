@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ServiceIcon } from "@/components/common/ServiceIcon";
-import { Button } from "@/components/ui/Button";
 import { routes } from "@/lib/navigation";
 
 const features = [
@@ -81,17 +80,6 @@ export default function StartPage() {
         >
           이미 계정이 있나요? 로그인하기
         </Link>
-        <p className="mt-1 text-center text-[11px] leading-4 text-outline">
-          시작 시{" "}
-          <Button variant="ghost" pending hidePendingLabel className="inline min-h-0 px-0 text-[11px] font-normal text-outline underline">
-            이용약관
-          </Button>{" "}
-          및{" "}
-          <Button variant="ghost" pending hidePendingLabel className="inline min-h-0 px-0 text-[11px] font-normal text-outline underline">
-            개인정보처리방침
-          </Button>
-          에 동의하게 됩니다.
-        </p>
       </footer>
     </main>
   );
