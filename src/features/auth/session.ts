@@ -1,4 +1,4 @@
-import { api, ApiError } from "@/lib/api/client";
+import { api, ApiError, serverUnavailableMessage } from "@/lib/api/client";
 import { saveAuthSession, type AuthUser } from "@/lib/auth/token";
 
 type LoginResponse = {
@@ -9,6 +9,10 @@ type LoginResponse = {
 };
 
 export function authErrorMessage(error: unknown) {
+  const unavailable = serverUnavailableMessage(error);
+  if (unavailable) {
+    return unavailable;
+  }
   if (error instanceof ApiError && error.message.trim()) {
     return error.message;
   }

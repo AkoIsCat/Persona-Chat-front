@@ -108,6 +108,26 @@ apiClient.interceptors.response.use(
   },
 );
 
+export function isServerUnavailable(error: unknown) {
+  if (error instanceof ApiError) {
+    return error.status === 502 || error.status === 503 || error.status === 504;
+  }
+
+  if (axios.isAxiosError(error)) {
+    return !error.response || error.code === "ECONNABORTED" || error.code === "ERR_NETWORK";
+  }
+
+  return error instanceof Error && (error.name === "TimeoutError" || error.message === "Network Error");
+}
+
+export function serverUnavailableMessage(error: unknown) {
+  if (!isServerUnavailable(error)) {
+    return null;
+  }
+
+  return "서버가 잠들어 있어 응답이 늦습니다. 잠시 후 다시 시도해 주세요.";
+}
+
 type CallOptions = {
   signal?: AbortSignal;
 };

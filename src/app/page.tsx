@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ServiceIcon } from "@/components/common/ServiceIcon";
+import { ResumeSession } from "@/features/auth/ResumeSession";
 import { routes } from "@/lib/navigation";
 
 const features = [
@@ -37,6 +38,7 @@ const features = [
 export default function StartPage() {
   return (
     <main className="flex h-full flex-col overflow-x-hidden overflow-y-auto bg-surface-lowest px-6 pt-12 pb-[max(2.5rem,env(safe-area-inset-bottom))]">
+      <ResumeSession />
       <header className="flex flex-col items-center pt-6 text-center">
         <ServiceIcon className="mb-6 size-16 rounded-[1.25rem]" />
         <p className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-[#f3f4f6] px-3 py-1 text-[12px] font-medium text-on-surface-variant">

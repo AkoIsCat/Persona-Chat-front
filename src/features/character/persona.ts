@@ -1,4 +1,4 @@
-import { api, ApiError } from "@/lib/api/client";
+import { api, ApiError, serverUnavailableMessage } from "@/lib/api/client";
 
 export type PersonaFields = {
   basic_info: string;
@@ -98,6 +98,10 @@ export function normalizePersona(persona: Partial<PersonaFields> | null | undefi
 }
 
 export function characterErrorMessage(error: unknown) {
+  const unavailable = serverUnavailableMessage(error);
+  if (unavailable) {
+    return unavailable;
+  }
   if (error instanceof ApiError && error.message.trim()) {
     return error.message;
   }
